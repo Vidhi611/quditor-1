@@ -1,0 +1,62 @@
+Constants:
+	constants.cs-> rol,id,api_access
+	strings.cs-> regular expression
+
+Unit of Work:
+	PagedList:
+		Indexing and counting of pages is done
+		next page or previous page is present or not is checked
+		Internal and public class present
+
+Contracts:
+	Models:
+		BaseEntity.cs-> Date and Time
+		Providers-> List of providers
+		RefreshToken.cs-> Checks expiration of tokens
+		User.cs-> Takes the details from the user and assigns the tokens(new,refreshed)	
+	ExchangeRefreshTokenRequest.cs-> Requests for the token
+	ExchangeRefreshTokenResponse.cs-> Gives information about the token
+	LoginRequest.cs-> Signin {username,password}
+	LoginResponse.cs-> Rreturns tokes{access,refresh}
+	RegisterUserRequest-> New registration{FirstName,LastName,Email,UserName,Password}
+	RegisterUserResponse-> ???
+
+DataAccess:
+	SocialAuthDataContext.cs-> Sets user and REfresh token in DB
+
+Repositories:
+	UserRepository.cs->???
+
+Authentication:
+	Claims:
+		ClaimService.cs-> Reuests for claims
+	JWT:
+		Services:
+			RefreshTokenFactory-> Converts a Byte array to a 64 bit string
+			TokenHandler.cs-> Creates a new token or Validates the exsisting token
+			Tokenresponse-> Creates the token response that will be returned to the user requesting a token. 
+			TokenServide-> Generates new JWT token
+		JWTIssuerOptions:
+			All the details regarding the JWT token is accessed
+	PasswordUtility:
+		SecurePasswordHash.cs-> Salt Encryption
+					Secures the password through hashing
+					Encrytion and decryption done
+	Providers:
+		AuthProviderService.cs-> Returns the schemes in priority order for request handling
+		Facebook/GitHub/Google Service.cs-> Get the claims required for singin/signup
+
+
+Services:
+	UserService.cs-> For signup if connection "true" retuned else "false" 
+			 Here the tokens are returned actually for {Local or Social Signin}
+			 For local the hashing and all is done{Authentication called}
+			 For external the claims are used to get the tokens
+
+Startup.cs:
+	The local and social providers are are called here.
+	The values of reqired parameter is also passed.
+	
+
+
+	
